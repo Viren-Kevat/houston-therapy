@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 // ---------------------
 // Middleware
 // ---------------------
-app.use(cors({ origin: true }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // ---------------------

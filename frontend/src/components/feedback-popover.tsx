@@ -74,7 +74,7 @@ export function FeedbackPopover() {
 
     // Send feedback to backend
     try {
-      await fetch("http://localhost:3001/api/feedback", {
+      await fetch("https://houston-therapy.onrender.com/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rating: selectedEmoji, feedback }),
