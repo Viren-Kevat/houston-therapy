@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import logoImage from "../assets/logo.png";
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -56,7 +57,7 @@ export function Navbar() {
       <div className="navbar-inner">
         {/* Logo */}
         <a href="#" className="navbar-logo" id="navbar-logo">
-          <span className="navbar-logo-icon">HT</span>
+          <img src={logoImage} alt="Houston Therapy Logo" className="navbar-logo-img" />
           <span className="navbar-logo-text">Houston Therapy</span>
         </a>
 
@@ -173,18 +174,10 @@ export function Navbar() {
           font-family: var(--font-heading);
         }
 
-        .navbar-logo-icon {
-          width: 38px;
-          height: 38px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-          color: white;
-          font-size: 0.85rem;
-          font-weight: 800;
-          border-radius: 10px;
-          letter-spacing: -0.02em;
+        .navbar-logo-img {
+          height: 40px;
+          width: auto;
+          object-fit: contain;
         }
 
         .navbar-logo-text {

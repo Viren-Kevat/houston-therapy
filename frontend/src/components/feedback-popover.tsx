@@ -18,14 +18,13 @@ export function FeedbackPopover() {
   const [selectedEmoji, setSelectedEmoji] = useState<number | null>(null);
   const [feedback, setFeedback] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [hasDismissed, setHasDismissed] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   // Show the button when user scrolls to the services section
   useEffect(() => {
     const handleScroll = () => {
       const servicesSection = document.getElementById("services-section");
-      if (!servicesSection || hasDismissed) return;
+      if (!servicesSection) return;
 
       const rect = servicesSection.getBoundingClientRect();
       // Consider it in view if any part of the section is visible
@@ -42,7 +41,7 @@ export function FeedbackPopover() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Check initially
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasDismissed, isOpen]);
+  }, [isOpen]);
 
   // Close on click outside
   useEffect(() => {
@@ -83,12 +82,13 @@ export function FeedbackPopover() {
       console.warn("Feedback API unavailable, but still showing thank you:", err);
     }
 
+    // Show thank-you for 2.2s, then close popover but keep trigger button visible
     setTimeout(() => {
       setIsOpen(false);
-      setTimeout(() => {
-        setIsVisible(false);
-        setHasDismissed(true); // Permanently hide only after successful submission
-      }, 400);
+      // Reset form state so it's fresh if reopened
+      setIsSubmitted(false);
+      setSelectedEmoji(null);
+      setFeedback("");
     }, 2200);
   };
 
@@ -97,7 +97,6 @@ export function FeedbackPopover() {
     setIsOpen(false);
   };
 
-  if (hasDismissed) return null;
 
   return (
     <AnimatePresence>
